@@ -21,7 +21,7 @@ public class AbstractComponent
 	
 	public void waitForElementToAppearAndClick(WebElement ele)
 	{
-		wait.until(ExpectedConditions.elementToBeClickable(ele)).click();
+		wait.until(ExpectedConditions.elementToBeClickable(ele)).click(); 
 	}
 	
 	

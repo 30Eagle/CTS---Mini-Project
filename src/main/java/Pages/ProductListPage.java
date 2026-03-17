@@ -72,7 +72,7 @@ public class ProductListPage extends AbstractComponent {
         maxRangeInput.clear();
         maxRangeInput.sendKeys(max);
 
-        wait.until(ExpectedConditions.elementToBeClickable(priceGoButton)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(priceGoButton)).click(); 
         
         
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("product-title")));   

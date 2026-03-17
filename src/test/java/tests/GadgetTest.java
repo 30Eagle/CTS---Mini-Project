@@ -10,6 +10,7 @@ public class GadgetTest extends BaseTest{
   @Test
   public void test() throws InterruptedException {
 	  
+	  
 	  HomePage hp = new HomePage(driver);
 	  ProductListPage pl = new ProductListPage(driver);
 	  
