@@ -11,11 +11,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProductListPage {
+import AbstractComponenets.AbstractComponent;
+
+public class ProductListPage extends AbstractComponent {
 	
 	WebDriver driver;
 	public ProductListPage(WebDriver driver) 
 	{
+		super(driver);
 		this .driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -47,10 +50,19 @@ public class ProductListPage {
     {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        WebElement sort = wait.until(ExpectedConditions.elementToBeClickable(sortDropdown));
-        sort.click();
+//        WebElement sort = wait.until(ExpectedConditions.elementToBeClickable(sortDropdown));
+//        sort.click();
         
-        wait.until(ExpectedConditions.elementToBeClickable(popularityOption)).click();
+        waitForElementToAppearAndClick(sortDropdown);
+        
+//        wait.until(ExpectedConditions.elementToBeClickable(relevanceOption)).click();
+        waitForElementToAppearAndClick(relevanceOption);
+        
+//        sort.click();
+        waitForElementToAppearAndClick(sortDropdown);
+        
+//        wait.until(ExpectedConditions.elementToBeClickable(popularityOption)).click();
+        waitForElementToAppearAndClick(popularityOption);
 
         wait.until(ExpectedConditions.elementToBeClickable(minRangeInput));
 
@@ -61,6 +73,7 @@ public class ProductListPage {
         maxRangeInput.sendKeys(max);
 
         wait.until(ExpectedConditions.elementToBeClickable(priceGoButton)).click();
+        
         
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("product-title")));   
         Thread.sleep(3000);
@@ -75,7 +88,8 @@ public class ProductListPage {
 
         int count = Math.min(freshProducts.size(), 5);
         
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) 
+        {
             try 
             {
                 WebElement product = driver.findElements(By.className("product-tuple-listing")).get(i);
