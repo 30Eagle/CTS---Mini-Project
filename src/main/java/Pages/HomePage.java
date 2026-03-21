@@ -25,6 +25,7 @@ public class HomePage
 	@FindBy(css = "div[class='sort-selected']")
 	WebElement searchDropDown;
 	
+	
 	public void searchProduct(String productName)
 	{
 		serachBox.sendKeys(productName + Keys.ENTER);
