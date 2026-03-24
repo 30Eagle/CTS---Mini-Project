@@ -12,38 +12,41 @@ import org.openqa.selenium.edge.EdgeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 public class BaseTest {
     public WebDriver driver;
 
-    
+    @Parameters({"browser"}) // This name must match the XML parameter name
     @BeforeClass
-    public void setup() throws IOException {
-    	
-    		Properties prop = new Properties();
-    		FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\Config\\config.properties");
-    		prop.load(fis);
-    		String browserName = prop.getProperty("browser");
-    		System.out.println(browserName);
-    		if(browserName.equals("chrome"))
-    		{
-    			WebDriverManager.chromedriver().setup();
-    			driver = new ChromeDriver(); 
-    		}
-    		else if(browserName.equals("edge"))
-    		{
-    			WebDriverManager.edgedriver().setup();
-    			driver = new EdgeDriver();
-    		}
-    		String url = prop.getProperty("url");
-    		System.out.println(url);
-    		driver.get(url);
+    public void setup(String browserName) throws IOException { // Accept it as an argument
+        
+        Properties prop = new Properties();
+        FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\test\\resources\\Config\\config.properties");
+        prop.load(fis);
+        
+        // If no parameter is passed, you can still use the config file as a fallback
+        if (browserName == null) {
+            browserName = prop.getProperty("browser");
+        }
 
-    		driver.manage().window().maximize();
-	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        
-        
+        System.out.println("Running on browser: " + browserName);
+
+        if (browserName.equalsIgnoreCase("chrome")) {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver(); 
+        } 
+        else if (browserName.equalsIgnoreCase("edge")) {
+            WebDriverManager.edgedriver().setup();
+            driver = new EdgeDriver();
+        }
+
+        String url = prop.getProperty("url");
+        driver.get(url);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
+}
 
 //    @AfterClass
 //    public void tearDown() {
@@ -51,4 +54,3 @@ public class BaseTest {
 //            driver.quit();
 //        }
 //    }
-}

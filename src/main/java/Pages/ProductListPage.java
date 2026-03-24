@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import AbstractComponenets.AbstractComponent;
+import Util.AbstractComponent;
 
 public class ProductListPage extends AbstractComponent {
 	
@@ -45,7 +45,7 @@ public class ProductListPage extends AbstractComponent {
 //    List<WebElement> products;
 
    
-
+    
     public void applyFilters(String min, String max) throws InterruptedException 
     {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -75,8 +75,11 @@ public class ProductListPage extends AbstractComponent {
         wait.until(ExpectedConditions.elementToBeClickable(priceGoButton)).click(); 
         
         
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("product-title")));   
-        Thread.sleep(3000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("product-title"))); 
+        
+        wait.until(d -> d.findElements(By.className("product-tuple-listing")).size() >= 5);
+        
+        //Thread.sleep(3000);
         
     }
     

@@ -6,8 +6,8 @@
       <class name="tests.GadgetTest">
         <methods>
           <include name="setup"/>
-          <include name="tearDown"/>
-          <include name="test"/>
+          <include name="filterStep"/>
+          <include name="searchPage"/>
         </methods>
       </class> <!-- tests.GadgetTest -->
     </classes>
